@@ -3,431 +3,224 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f1115">
-<title>单位换算</title>
+<meta name="theme-color" content="#0a0c12">
+<title>予愿安洁莉娜 · 干员档案</title>
+<meta name="description" content="明日方舟干员「予愿安洁莉娜」的粉丝向介绍页面：职业分支、天赋、技能与立绘。">
 <style>
   :root{
-    --bg:#f5f6f8; --card:#ffffff; --ink:#111418; --ink2:#6b7280; --line:#e5e7eb;
-    --accent:#2f6bff; --accent-soft:#e8efff; --good:#0f9d58; --danger:#d93025;
-    --radius:16px;
-    --font:-apple-system,BlinkMacSystemFont,"SF Pro SC","PingFang SC","Helvetica Neue",Arial,sans-serif;
+    --bg:#0a0c12; --panel:#121620; --panel2:#161b27; --line:rgba(255,255,255,.09);
+    --ink:#eef1f6; --muted:#98a2b3; --gold:#d8b070; --gold-soft:rgba(216,176,112,.14);
+    --teal:#6fd3c7; --radius:18px;
+    --font:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    --serif:"Songti SC","Noto Serif SC","Source Han Serif SC",serif;
   }
-  @media (prefers-color-scheme: dark){
-    :root{ --bg:#0f1115; --card:#171a20; --ink:#f2f4f8; --ink2:#9aa3b2; --line:#272c35;
-           --accent:#6f9bff; --accent-soft:#1c2740; }
-  }
-  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
   html,body{margin:0;padding:0;}
   body{
     background:var(--bg); color:var(--ink); font-family:var(--font);
-    font-size:16px; line-height:1.45;
-    padding:calc(env(safe-area-inset-top) + 20px) 16px calc(env(safe-area-inset-bottom) + 28px);
-    min-height:100vh;
+    line-height:1.6; font-size:15px;
+    padding:calc(env(safe-area-inset-top) + 18px) 18px calc(env(safe-area-inset-bottom) + 32px);
+    background-image:
+      radial-gradient(120% 60% at 80% -10%, rgba(111,211,199,.10), transparent 60%),
+      radial-gradient(90% 50% at 0% 0%, rgba(216,176,112,.10), transparent 55%);
+    background-repeat:no-repeat;
   }
-  main{max-width:560px;margin:0 auto;}
-  header h1{font-size:26px;line-height:1.2;margin:0 0 4px;letter-spacing:-.02em;}
-  header .sub{margin:0 0 18px;color:var(--ink2);font-size:13px;}
+  main{max-width:780px;margin:0 auto;}
 
-  .tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
-  .tabs::-webkit-scrollbar{display:none;}
-  .tab{
-    flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink2);
-    padding:8px 14px;border-radius:999px;font-size:14px;cursor:pointer;transition:.15s;white-space:nowrap;
+  .topnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;}
+  .brand{font-size:13px;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;}
+  .topnav a{color:var(--muted);text-decoration:none;font-size:13px;border:1px solid var(--line);padding:7px 12px;border-radius:999px;}
+  .topnav a:hover{color:var(--ink);border-color:var(--gold);}
+
+  .hero{display:grid;grid-template-columns:1fr 260px;gap:24px;align-items:center;margin-bottom:26px;}
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.16em;
+    color:var(--gold);border:1px solid rgba(216,176,112,.35);background:var(--gold-soft);
+    padding:5px 12px;border-radius:999px;margin-bottom:14px;}
+  h1{font-family:var(--serif);font-size:clamp(30px,7vw,46px);line-height:1.15;margin:0 0 6px;letter-spacing:.01em;}
+  .en{color:var(--muted);font-size:13px;letter-spacing:.24em;text-transform:uppercase;margin-bottom:14px;}
+  .lead{color:#c7cedb;margin:0 0 18px;font-size:15px;}
+  .hero-art{position:relative;border-radius:22px;overflow:hidden;
+    background:linear-gradient(160deg,#1a2130,#0d1118);border:1px solid var(--line);
+    box-shadow:0 18px 50px rgba(0,0,0,.45);}
+  .hero-art img{display:block;width:100%;height:auto;}
+  .hero-art::after{content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;
+    background:linear-gradient(180deg,transparent 55%,rgba(10,12,18,.55));}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 30px;}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px 10px;text-align:center;}
+  .stat b{display:block;font-size:17px;font-weight:600;color:var(--gold);letter-spacing:.01em;}
+  .stat span{display:block;font-size:11px;color:var(--muted);margin-top:2px;letter-spacing:.06em;}
+
+  section{margin-bottom:32px;}
+  h2{font-size:13px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;
+    margin:0 0 12px;font-weight:600;display:flex;align-items:center;gap:10px;}
+  h2::after{content:"";flex:1;height:1px;background:var(--line);}
+
+  .prose{color:#c7cedb;}
+  .prose p{margin:0 0 12px;}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 16px 14px;}
+  .card h3{margin:0 0 6px;font-size:16px;font-weight:600;color:var(--ink);}
+  .card p{margin:0;color:var(--muted);font-size:13.5px;line-height:1.6;}
+  .tag{display:inline-block;font-size:11px;color:var(--teal);background:rgba(111,211,199,.10);
+    border:1px solid rgba(111,211,199,.25);border-radius:999px;padding:2px 9px;margin-bottom:9px;letter-spacing:.06em;}
+
+  .skills{display:flex;flex-direction:column;gap:12px;}
+  .skill{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:15px 16px;}
+  .skill .n{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
+    font-family:var(--serif);font-size:16px;color:var(--gold);background:var(--gold-soft);border:1px solid rgba(216,176,112,.3);}
+  .skill h3{margin:0 0 4px;font-size:16px;}
+  .skill .meta{font-size:11.5px;color:var(--muted);margin-bottom:6px;letter-spacing:.06em;}
+  .skill p{margin:0;color:#bcc5d3;font-size:13.5px;}
+
+  .gallery{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  figure{margin:0;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+  figure img{display:block;width:100%;height:auto;}
+  figcaption{font-size:12px;color:var(--muted);padding:10px 12px;letter-spacing:.06em;}
+
+  .links{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .link{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:14px 16px;text-decoration:none;color:var(--ink);transition:.15s;}
+  .link:hover{border-color:var(--gold);background:var(--panel2);transform:translateY(-1px);}
+  .link small{display:block;color:var(--muted);font-size:12px;margin-top:2px;}
+  .link .arrow{color:var(--gold);font-size:15px;flex:0 0 auto;}
+
+  footer{border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:12px;line-height:1.8;}
+  footer a{color:var(--muted);}
+
+  @media (max-width:640px){
+    .hero{grid-template-columns:1fr;gap:18px;}
+    .hero-art{max-width:280px;margin:0 auto;order:-1;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .grid2,.links,.gallery{grid-template-columns:1fr;}
   }
-  .tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
-
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:18px;}
-  .field{margin-bottom:12px;}
-  .lbl{display:block;font-size:12px;color:var(--ink2);margin-bottom:6px;letter-spacing:.02em;}
-  .inputline{display:flex;gap:10px;}
-  input[type=text], select{
-    font-family:var(--font);font-size:17px;color:var(--ink);background:var(--bg);
-    border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none;width:100%;
-    appearance:none; -webkit-appearance:none;
-  }
-  input[type=text]{flex:1 1 auto;min-width:0;font-variant-numeric:tabular-nums;font-weight:600;}
-  select{flex:0 0 auto;width:auto;min-width:96px;font-size:15px;
-    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
-    background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
-  input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
-
-  .outrow{display:flex;align-items:center;gap:10px;}
-  .outval{flex:1 1 auto;min-width:0;font-size:28px;font-weight:700;letter-spacing:-.02em;
-    font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}
-  .swap{
-    display:block;margin:-2px auto 12px;width:44px;height:44px;border-radius:50%;
-    border:1px solid var(--line);background:var(--card);color:var(--ink2);font-size:18px;
-    cursor:pointer;transition:.15s;
-  }
-  .swap:active{transform:scale(.94);}
-  .copy{border:1px solid var(--line);background:var(--bg);color:var(--ink2);border-radius:10px;
-    padding:8px 12px;font-size:13px;cursor:pointer;flex:0 0 auto;}
-  .err{color:var(--danger);font-size:13px;min-height:18px;}
-
-  .list-wrap h2{font-size:13px;color:var(--ink2);font-weight:600;margin:0 0 8px;letter-spacing:.04em;}
-  ul{list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
-  li{display:flex;align-items:baseline;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);cursor:pointer;}
-  li:last-child{border-bottom:none;}
-  li:active{background:var(--accent-soft);}
-  li.sel{background:var(--accent-soft);}
-  li .u{color:var(--ink2);font-size:14px;flex:0 0 auto;min-width:70px;}
-  li .v{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:600;text-align:right;overflow-wrap:anywhere;}
-
-  .note{color:var(--ink2);font-size:12px;margin:16px 2px 0;line-height:1.6;}
-  .rates{margin-top:14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:12px 14px;}
-  .rates summary{cursor:pointer;font-size:13px;color:var(--ink2);}
-  .rateGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:12px;}
-  .rateGrid label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2);}
-  .rateGrid input{width:100%;min-width:0;font-size:14px;padding:8px 10px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-variant-numeric:tabular-nums;}
-  .toast{
-    position:fixed;left:50%;bottom:32px;transform:translate(-50%,20px);opacity:0;
-    background:#111418;color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;
-    transition:.2s;pointer-events:none;z-index:9;
-  }
-  .toast.show{opacity:1;transform:translate(-50%,0);}
 </style>
 </head>
 <body>
 <main>
-  <header>
-    <h1>单位换算</h1>
-    <p class="sub">长度 · 重量 · 温度 · 面积 · 体积 · 速度 · 货币</p>
+  <div class="topnav">
+    <span class="brand">Arknights · Operator File</span>
+    <a href="./units.html">单位换算工具</a>
+  </div>
+
+  <header class="hero">
+    <div>
+      <span class="kicker">罗德岛 · 辅助干员</span>
+      <h1>予愿安洁莉娜</h1>
+      <div class="en">Angelina · The Wish</div>
+      <p class="lead">以「起飞」为战斗方式的巡空者。她不拦地面，只拦天空——把大地留给队友，把天空留给自己。</p>
+    </div>
+    <div class="hero-art">
+      <img src="assets/hero.png" alt="予愿安洁莉娜立绘" width="480" height="480">
+    </div>
   </header>
 
-  <nav class="tabs" id="tabs" role="tablist"></nav>
+  <div class="stats">
+    <div class="stat"><b>辅助</b><span>职业</span></div>
+    <div class="stat"><b>巡空者</b><span>分支</span></div>
+    <div class="stat"><b>2</b><span>阻挡（空中）</span></div>
+    <div class="stat"><b>1.5s</b><span>攻击间隔</span></div>
+  </div>
 
-  <section class="card">
-    <div class="field">
-      <span class="lbl">从</span>
-      <div class="inputline">
-        <input id="input" type="text" inputmode="decimal" value="1" autocomplete="off" spellcheck="false" aria-label="数值">
-        <select id="fromUnit" aria-label="原单位"></select>
-      </div>
+  <section>
+    <h2>简介</h2>
+    <div class="prose">
+      <p>「予愿安洁莉娜」是《明日方舟》中安洁莉娜的同名异格形态，属于辅助职业的「巡空者」分支，于 2026 年 8 月通过夏季限定寻访「车辙与风的归所」登场。</p>
+      <p>她的核心机制是<b>起飞</b>：进入该状态后不阻挡地面敌人，也不会被地面敌人攻击，转而专门拦截空中单位，同时普通攻击可以对空。这意味着她的战场位置比一般干员自由得多，也更考验对出怪路线的理解。</p>
     </div>
-
-    <button class="swap" id="swap" aria-label="交换单位">⇅</button>
-
-    <div class="field">
-      <span class="lbl">到</span>
-      <div class="inputline">
-        <div class="outval" id="output">1</div>
-        <button class="copy" id="copy">复制</button>
-        <select id="toUnit" aria-label="目标单位"></select>
-      </div>
-    </div>
-    <div class="err" id="err"></div>
   </section>
 
-  <section class="list-wrap">
-    <h2>换算成所有单位</h2>
-    <ul id="list"></ul>
-    <details class="rates" id="ratesBox" hidden>
-      <summary>汇率设置（1 单位 = 多少人民币）</summary>
-      <div class="rateGrid" id="rateGrid"></div>
-    </details>
+  <section>
+    <h2>天赋</h2>
+    <div class="grid2">
+      <div class="card">
+        <span class="tag">第一天赋</span>
+        <h3>飘浮大地之上</h3>
+        <p>攻击附带额外法术伤害，面对重量较轻的敌人时加成更高；起飞状态下还能让范围内的敌人失重。</p>
+      </div>
+      <div class="card">
+        <span class="tag">第二天赋</span>
+        <h3>天穹间的舞步</h3>
+        <p>在场时，所有处于起飞状态的友方干员攻击力提升，并在阻挡敌人时持续回复生命。</p>
+      </div>
+    </div>
   </section>
 
-  <p class="note" id="note"></p>
+  <section>
+    <h2>技能</h2>
+    <div class="skills">
+      <div class="skill">
+        <div class="n">一</div>
+        <div>
+          <h3>极速送达</h3>
+          <div class="meta">精英 0 开放 · 被动</div>
+          <p>部署后立刻起飞，攻击范围扩大、攻击力提升，并可同时攻击两个目标。上手最直接的一个技能。</p>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="n">二</div>
+        <div>
+          <h3>重力自定义</h3>
+          <div class="meta">精英 1 开放 · 手动触发</div>
+          <p>起飞后向前方滑翔，攻击范围扩大，并把掠过的地面敌人浮空，制造一段可控的控场窗口。</p>
+        </div>
+      </div>
+      <div class="skill">
+        <div class="n">三</div>
+        <div>
+          <h3>酸橙的心事</h3>
+          <div class="meta">精英 2 开放 · 手动触发</div>
+          <p>开启后立刻起飞。具体数值与完整效果变化，建议直接对照 PRTS 的技能表。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>立绘</h2>
+    <div class="gallery">
+      <figure>
+        <img src="assets/hero.png" alt="初始立绘" width="480" height="480" loading="lazy">
+        <figcaption>初始立绘</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/art_e2.png" alt="精英二立绘" width="480" height="480" loading="lazy">
+        <figcaption>精英二立绘</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>延伸阅读</h2>
+    <div class="links">
+      <a class="link" href="https://prts.wiki/w/%E4%BA%88%E6%84%BF%E5%AE%89%E6%B4%81%E8%8E%89%E5%A8%9C" target="_blank" rel="noopener">
+        <span>PRTS 百科<small>数据、技能与语音最全</small></span><span class="arrow">↗</span>
+      </a>
+      <a class="link" href="https://wiki.biligame.com/arknights/%E4%BA%88%E6%84%BF%E5%AE%89%E6%B4%81%E8%8E%89%E5%A8%9C" target="_blank" rel="noopener">
+        <span>B 站 Wiki<small>图文攻略与配队思路</small></span><span class="arrow">↗</span>
+      </a>
+      <a class="link" href="https://baike.baidu.com/item/%E4%BA%88%E6%84%BF%E5%AE%89%E6%B4%81%E8%8E%89%E5%A8%9C" target="_blank" rel="noopener">
+        <span>百度百科<small>角色背景与登场信息</small></span><span class="arrow">↗</span>
+      </a>
+      <a class="link" href="https://prts.wiki/w/%E5%AE%89%E6%B4%81%E8%8E%89%E5%A8%9C" target="_blank" rel="noopener">
+        <span>原型干员 安洁莉娜<small>看看异格之前的她</small></span><span class="arrow">↗</span>
+      </a>
+      <a class="link" href="https://ak.hypergryph.com/" target="_blank" rel="noopener">
+        <span>明日方舟官网<small>活动与版本公告</small></span><span class="arrow">↗</span>
+      </a>
+      <a class="link" href="./units.html">
+        <span>单位换算小工具<small>本站附带的实用页面</small></span><span class="arrow">→</span>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>角色「予愿安洁莉娜」及相关图像版权归鹰角网络（Hypergryph）所有。本站为非官方粉丝页面，仅用于介绍与交流，不作商业用途。图像素材取自 PRTS 百科，如权利人要求下架，请联系删除。</p>
+    <p>数据以 2026 年 11 月为准，版本更新后可能变化。</p>
+  </footer>
 </main>
-<div class="toast" id="toast"></div>
-
-<script>
-(function(){
-  "use strict";
-
-  var LINEAR = {
-    length: { label:"长度", units:[
-      ["m","米",1], ["km","千米",1000], ["cm","厘米",0.01], ["mm","毫米",0.001],
-      ["寸","寸",1/30], ["尺","尺",1/3], ["里","里",500],
-      ["in","英寸",0.0254], ["ft","英尺",0.3048], ["yd","码",0.9144], ["mi","英里",1609.344],
-      ["nmi","海里",1852]
-    ]},
-    weight: { label:"重量", units:[
-      ["mg","毫克",1e-6], ["g","克",0.001], ["kg","千克",1], ["t","吨",1000],
-      ["两","两",0.05], ["斤","斤",0.5], ["dan","担",50],
-      ["oz","盎司",0.028349523125], ["lb","磅",0.45359237]
-    ]},
-    area: { label:"面积", units:[
-      ["m2","平方米",1], ["cm2","平方厘米",1e-4], ["mm2","平方毫米",1e-6], ["km2","平方千米",1e6],
-      ["mu","亩",666.6666667], ["ha","公顷",10000], ["ping","坪",3.305785],
-      ["ft2","平方英尺",0.09290304], ["in2","平方英寸",0.00064516], ["acre","英亩",4046.8564224]
-    ]},
-    volume: { label:"体积", units:[
-      ["ml","毫升",0.001], ["l","升",1], ["m3","立方米",1000],
-      ["gal","加仑(美)",3.785411784], ["qt","夸脱(美)",0.946352946], ["pt","品脱(美)",0.473176473],
-      ["cup","杯(美)",0.2365882365], ["floz","液量盎司(美)",0.0295735295625]
-    ]},
-    speed: { label:"速度", units:[
-      ["mps","米/秒",1], ["kmh","千米/小时",0.2777777778], ["mph","英里/小时",0.44704],
-      ["kn","节",0.5144444444], ["fts","英尺/秒",0.3048]
-    ]}
-  };
-
-  var TEMP = { label:"温度", units:[["c","摄氏度 °C"],["f","华氏度 °F"],["k","开尔文 K"]] };
-
-  var CURRENCY_DEFAULT = [
-    ["cny","人民币 CNY",1], ["usd","美元 USD",7.10], ["eur","欧元 EUR",7.75],
-    ["jpy","日元 JPY",0.047], ["gbp","英镑 GBP",9.05], ["hkd","港币 HKD",0.91],
-    ["krw","韩元 KRW",0.0050], ["aud","澳元 AUD",4.65], ["cad","加元 CAD",5.20],
-    ["sgd","新加坡元 SGD",5.30], ["twd","新台币 TWD",0.22]
-  ];
-
-  var order = ["length","weight","temp","area","volume","speed","currency"];
-  var labels = { length:"长度", weight:"重量", temp:"温度", area:"面积", volume:"体积", speed:"速度", currency:"货币" };
-
-  var state = {
-    cat: "length",
-    input: "1",
-    from: {length:"m", weight:"kg", temp:"c", area:"m2", volume:"l", speed:"kmh", currency:"cny"},
-    to:   {length:"ft", weight:"lb", temp:"f", area:"ft2", volume:"gal", speed:"mph", currency:"usd"}
-  };
-
-  var rates = loadRates();
-
-  var $ = function(id){ return document.getElementById(id); };
-  var tabsEl = $("tabs"), inputEl = $("input"), fromEl = $("fromUnit"), toEl = $("toUnit");
-  var outEl = $("output"), listEl = $("list"), errEl = $("err"), noteEl = $("note");
-  var ratesBox = $("ratesBox"), rateGrid = $("rateGrid"), toastEl = $("toast");
-
-  function loadRates(){
-    var base = {};
-    CURRENCY_DEFAULT.forEach(function(u){ base[u[0]] = u[2]; });
-    try{
-      var saved = JSON.parse(localStorage.getItem("unitRates") || "null");
-      if(saved) for(var k in saved) if(typeof saved[k] === "number" && saved[k] > 0) base[k] = saved[k];
-    }catch(e){}
-    return base;
-  }
-
-  function unitsOf(cat){
-    if(cat === "temp") return TEMP.units.map(function(u){ return {id:u[0], label:u[1]}; });
-    if(cat === "currency") return CURRENCY_DEFAULT.map(function(u){ return {id:u[0], label:u[1], rate: rates[u[0]]}; });
-    return LINEAR[cat].units.map(function(u){ return {id:u[0], label:u[1], factor:u[2]}; });
-  }
-
-  function toC(v, id){
-    if(id === "c") return v;
-    if(id === "f") return (v - 32) * 5 / 9;
-    return v - 273.15;
-  }
-  function fromC(c, id){
-    if(id === "c") return c;
-    if(id === "f") return c * 9 / 5 + 32;
-    return c + 273.15;
-  }
-
-  function convert(v, cat, from, to){
-    if(cat === "temp") return fromC(toC(v, from), to);
-    var list = unitsOf(cat);
-    var f = find(list, from), t = find(list, to);
-    if(!f || !t) return NaN;
-    if(cat === "currency") return v * f.rate / t.rate;
-    return v * f.factor / t.factor;
-  }
-
-  function find(list, id){
-    for(var i=0;i<list.length;i++) if(list[i].id === id) return list[i];
-    return null;
-  }
-
-  function fmt(n){
-    if(!isFinite(n)) return "—";
-    if(n === 0) return "0";
-    var a = Math.abs(n);
-    if(a >= 1e15 || a < 1e-9) return n.toExponential(5).replace("e+","e");
-    var digits = a >= 1000 ? 2 : a >= 1 ? 3 : a >= 0.001 ? 5 : 8;
-    var rounded = Number(n.toPrecision(12));
-    var s = rounded.toLocaleString("en-US", { maximumFractionDigits: digits });
-    if(s === "0" && n !== 0) return n.toExponential(4).replace("e+","e");
-    return s;
-  }
-
-  function parseInput(raw){
-    var s = String(raw || "").trim().replace(/,/g, "").replace(/，/g, "");
-    if(s === "" || s === "-" || s === "." || s === "-.") return null;
-    var n = Number(s);
-    return isFinite(n) ? n : NaN;
-  }
-
-  function buildTabs(){
-    tabsEl.innerHTML = "";
-    order.forEach(function(cat){
-      var b = document.createElement("button");
-      b.className = "tab"; b.textContent = labels[cat]; b.type = "button";
-      b.setAttribute("role", "tab");
-      b.setAttribute("aria-selected", String(cat === state.cat));
-      b.addEventListener("click", function(){ setCat(cat); });
-      tabsEl.appendChild(b);
-    });
-  }
-
-  function fillSelects(){
-    var list = unitsOf(state.cat);
-    [fromEl, toEl].forEach(function(sel, idx){
-      sel.innerHTML = "";
-      list.forEach(function(u){
-        var o = document.createElement("option");
-        o.value = u.id; o.textContent = u.label;
-        sel.appendChild(o);
-      });
-      sel.value = idx === 0 ? state.from[state.cat] : state.to[state.cat];
-    });
-  }
-
-  function setCat(cat){
-    state.cat = cat;
-    buildTabs();
-    fillSelects();
-    render();
-    try{ localStorage.setItem("unitCat", cat); }catch(e){}
-  }
-
-  function render(){
-    var v = parseInput(inputEl.value);
-    var cat = state.cat;
-
-    if(v === null){
-      outEl.textContent = "—";
-      errEl.textContent = "";
-      renderList(NaN);
-      renderNote();
-      return;
-    }
-    if(isNaN(v)){
-      outEl.textContent = "—";
-      errEl.textContent = "请输入数字";
-      renderList(NaN);
-      renderNote();
-      return;
-    }
-    if(cat === "temp" && state.from[cat] === "k" && v < 0){
-      errEl.textContent = "开尔文不能为负";
-    } else if(cat === "temp" && state.from[cat] === "c" && v < -273.15){
-      errEl.textContent = "低于绝对零度";
-    } else {
-      errEl.textContent = "";
-    }
-
-    var res = convert(v, cat, state.from[cat], state.to[cat]);
-    outEl.textContent = fmt(res);
-    renderList(v);
-    renderNote();
-  }
-
-  function renderList(v){
-    var list = unitsOf(state.cat);
-    listEl.innerHTML = "";
-    list.forEach(function(u){
-      var li = document.createElement("li");
-      if(u.id === state.to[state.cat]) li.className = "sel";
-
-      var name = document.createElement("span");
-      name.className = "u"; name.textContent = u.label;
-
-      var val = document.createElement("span");
-      val.className = "v";
-      if(!isNaN(v)) val.textContent = fmt(convert(v, state.cat, state.from[state.cat], u.id));
-      else val.textContent = "—";
-
-      li.appendChild(name); li.appendChild(val);
-      li.addEventListener("click", function(){
-        state.to[state.cat] = u.id;
-        toEl.value = u.id;
-        render();
-      });
-      listEl.appendChild(li);
-    });
-  }
-
-  function renderNote(){
-    var cat = state.cat;
-    if(cat === "currency"){
-      noteEl.textContent = "汇率为页面内置的参考值，不是实时行情。要按自己的价格算，点上面的“汇率设置”改一下，改完会存在本机。";
-      ratesBox.hidden = false;
-    } else if(cat === "temp"){
-      noteEl.textContent = "温度换算是按绝对温标做的偏移计算，不是简单乘除。";
-      ratesBox.hidden = true;
-    } else {
-      noteEl.textContent = "点下面任意一行，可以把它设为换算目标单位。";
-      ratesBox.hidden = true;
-    }
-  }
-
-  function buildRates(){
-    rateGrid.innerHTML = "";
-    CURRENCY_DEFAULT.forEach(function(u){
-      if(u[0] === "cny") return;
-      var lab = document.createElement("label");
-      var span = document.createElement("span");
-      span.textContent = u[0].toUpperCase();
-      var inp = document.createElement("input");
-      inp.type = "text"; inp.inputMode = "decimal"; inp.value = String(rates[u[0]]);
-      inp.addEventListener("input", function(){
-        var n = Number(String(inp.value).replace(/,/g, ""));
-        if(isFinite(n) && n > 0){
-          rates[u[0]] = n;
-          try{ localStorage.setItem("unitRates", JSON.stringify(rates)); }catch(e){}
-          render();
-        }
-      });
-      lab.appendChild(span); lab.appendChild(inp);
-      rateGrid.appendChild(lab);
-    });
-  }
-
-  function toast(msg){
-    toastEl.textContent = msg;
-    toastEl.classList.add("show");
-    clearTimeout(toast._t);
-    toast._t = setTimeout(function(){ toastEl.classList.remove("show"); }, 1400);
-  }
-
-  fromEl.addEventListener("change", function(){
-    state.from[state.cat] = fromEl.value;
-    render();
-  });
-  toEl.addEventListener("change", function(){
-    state.to[state.cat] = toEl.value;
-    render();
-  });
-  inputEl.addEventListener("input", render);
-
-  $("swap").addEventListener("click", function(){
-    var a = state.from[state.cat], b = state.to[state.cat];
-    var v = parseInput(inputEl.value);
-    if(v !== null && !isNaN(v)){
-      var res = convert(v, state.cat, a, b);
-      if(isFinite(res)) inputEl.value = String(Number(res.toPrecision(10)));
-    }
-    state.from[state.cat] = b;
-    state.to[state.cat] = a;
-    fromEl.value = b;
-    toEl.value = a;
-    render();
-  });
-
-  $("copy").addEventListener("click", function(){
-    var text = outEl.textContent;
-    if(!text || text === "—") return;
-    var done = function(){ toast("已复制"); };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(done, function(){ toast("复制失败，请长按选取"); });
-    } else {
-      toast("复制失败，请长按选取");
-    }
-  });
-
-  // boot
-  try{
-    var savedCat = localStorage.getItem("unitCat");
-    if(savedCat && order.indexOf(savedCat) > -1) state.cat = savedCat;
-  }catch(e){}
-
-  buildTabs();
-  fillSelects();
-  buildRates();
-  render();
-})();
-</script>
 </body>
 </html>
