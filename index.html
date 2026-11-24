@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f1115">
+<title>单位换算</title>
+<style>
+  :root{
+    --bg:#f5f6f8; --card:#ffffff; --ink:#111418; --ink2:#6b7280; --line:#e5e7eb;
+    --accent:#2f6bff; --accent-soft:#e8efff; --good:#0f9d58; --danger:#d93025;
+    --radius:16px;
+    --font:-apple-system,BlinkMacSystemFont,"SF Pro SC","PingFang SC","Helvetica Neue",Arial,sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0f1115; --card:#171a20; --ink:#f2f4f8; --ink2:#9aa3b2; --line:#272c35;
+           --accent:#6f9bff; --accent-soft:#1c2740; }
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--bg); color:var(--ink); font-family:var(--font);
+    font-size:16px; line-height:1.45;
+    padding:calc(env(safe-area-inset-top) + 20px) 16px calc(env(safe-area-inset-bottom) + 28px);
+    min-height:100vh;
+  }
+  main{max-width:560px;margin:0 auto;}
+  header h1{font-size:26px;line-height:1.2;margin:0 0 4px;letter-spacing:-.02em;}
+  header .sub{margin:0 0 18px;color:var(--ink2);font-size:13px;}
+
+  .tabs{display:flex;gap:8px;overflow-x:auto;padding:2px 0 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;border:1px solid var(--line);background:var(--card);color:var(--ink2);
+    padding:8px 14px;border-radius:999px;font-size:14px;cursor:pointer;transition:.15s;white-space:nowrap;
+  }
+  .tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;margin-bottom:18px;}
+  .field{margin-bottom:12px;}
+  .lbl{display:block;font-size:12px;color:var(--ink2);margin-bottom:6px;letter-spacing:.02em;}
+  .inputline{display:flex;gap:10px;}
+  input[type=text], select{
+    font-family:var(--font);font-size:17px;color:var(--ink);background:var(--bg);
+    border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none;width:100%;
+    appearance:none; -webkit-appearance:none;
+  }
+  input[type=text]{flex:1 1 auto;min-width:0;font-variant-numeric:tabular-nums;font-weight:600;}
+  select{flex:0 0 auto;width:auto;min-width:96px;font-size:15px;
+    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center;padding-right:32px;}
+  input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+
+  .outrow{display:flex;align-items:center;gap:10px;}
+  .outval{flex:1 1 auto;min-width:0;font-size:28px;font-weight:700;letter-spacing:-.02em;
+    font-variant-numeric:tabular-nums;overflow-wrap:anywhere;}
+  .swap{
+    display:block;margin:-2px auto 12px;width:44px;height:44px;border-radius:50%;
+    border:1px solid var(--line);background:var(--card);color:var(--ink2);font-size:18px;
+    cursor:pointer;transition:.15s;
+  }
+  .swap:active{transform:scale(.94);}
+  .copy{border:1px solid var(--line);background:var(--bg);color:var(--ink2);border-radius:10px;
+    padding:8px 12px;font-size:13px;cursor:pointer;flex:0 0 auto;}
+  .err{color:var(--danger);font-size:13px;min-height:18px;}
+
+  .list-wrap h2{font-size:13px;color:var(--ink2);font-weight:600;margin:0 0 8px;letter-spacing:.04em;}
+  ul{list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;}
+  li{display:flex;align-items:baseline;gap:12px;padding:13px 16px;border-bottom:1px solid var(--line);cursor:pointer;}
+  li:last-child{border-bottom:none;}
+  li:active{background:var(--accent-soft);}
+  li.sel{background:var(--accent-soft);}
+  li .u{color:var(--ink2);font-size:14px;flex:0 0 auto;min-width:70px;}
+  li .v{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:600;text-align:right;overflow-wrap:anywhere;}
+
+  .note{color:var(--ink2);font-size:12px;margin:16px 2px 0;line-height:1.6;}
+  .rates{margin-top:14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--card);padding:12px 14px;}
+  .rates summary{cursor:pointer;font-size:13px;color:var(--ink2);}
+  .rateGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:12px;}
+  .rateGrid label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2);}
+  .rateGrid input{width:100%;min-width:0;font-size:14px;padding:8px 10px;border-radius:9px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-variant-numeric:tabular-nums;}
+  .toast{
+    position:fixed;left:50%;bottom:32px;transform:translate(-50%,20px);opacity:0;
+    background:#111418;color:#fff;padding:10px 16px;border-radius:999px;font-size:13px;
+    transition:.2s;pointer-events:none;z-index:9;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>单位换算</h1>
+    <p class="sub">长度 · 重量 · 温度 · 面积 · 体积 · 速度 · 货币</p>
+  </header>
+
+  <nav class="tabs" id="tabs" role="tablist"></nav>
+
+  <section class="card">
+    <div class="field">
+      <span class="lbl">从</span>
+      <div class="inputline">
+        <input id="input" type="text" inputmode="decimal" value="1" autocomplete="off" spellcheck="false" aria-label="数值">
+        <select id="fromUnit" aria-label="原单位"></select>
+      </div>
+    </div>
+
+    <button class="swap" id="swap" aria-label="交换单位">⇅</button>
+
+    <div class="field">
+      <span class="lbl">到</span>
+      <div class="inputline">
+        <div class="outval" id="output">1</div>
+        <button class="copy" id="copy">复制</button>
+        <select id="toUnit" aria-label="目标单位"></select>
+      </div>
+    </div>
+    <div class="err" id="err"></div>
+  </section>
+
+  <section class="list-wrap">
+    <h2>换算成所有单位</h2>
+    <ul id="list"></ul>
+    <details class="rates" id="ratesBox" hidden>
+      <summary>汇率设置（1 单位 = 多少人民币）</summary>
+      <div class="rateGrid" id="rateGrid"></div>
+    </details>
+  </section>
+
+  <p class="note" id="note"></p>
+</main>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  var LINEAR = {
+    length: { label:"长度", units:[
+      ["m","米",1], ["km","千米",1000], ["cm","厘米",0.01], ["mm","毫米",0.001],
+      ["寸","寸",1/30], ["尺","尺",1/3], ["里","里",500],
+      ["in","英寸",0.0254], ["ft","英尺",0.3048], ["yd","码",0.9144], ["mi","英里",1609.344],
+      ["nmi","海里",1852]
+    ]},
+    weight: { label:"重量", units:[
+      ["mg","毫克",1e-6], ["g","克",0.001], ["kg","千克",1], ["t","吨",1000],
+      ["两","两",0.05], ["斤","斤",0.5], ["dan","担",50],
+      ["oz","盎司",0.028349523125], ["lb","磅",0.45359237]
+    ]},
+    area: { label:"面积", units:[
+      ["m2","平方米",1], ["cm2","平方厘米",1e-4], ["mm2","平方毫米",1e-6], ["km2","平方千米",1e6],
+      ["mu","亩",666.6666667], ["ha","公顷",10000], ["ping","坪",3.305785],
+      ["ft2","平方英尺",0.09290304], ["in2","平方英寸",0.00064516], ["acre","英亩",4046.8564224]
+    ]},
+    volume: { label:"体积", units:[
+      ["ml","毫升",0.001], ["l","升",1], ["m3","立方米",1000],
+      ["gal","加仑(美)",3.785411784], ["qt","夸脱(美)",0.946352946], ["pt","品脱(美)",0.473176473],
+      ["cup","杯(美)",0.2365882365], ["floz","液量盎司(美)",0.0295735295625]
+    ]},
+    speed: { label:"速度", units:[
+      ["mps","米/秒",1], ["kmh","千米/小时",0.2777777778], ["mph","英里/小时",0.44704],
+      ["kn","节",0.5144444444], ["fts","英尺/秒",0.3048]
+    ]}
+  };
+
+  var TEMP = { label:"温度", units:[["c","摄氏度 °C"],["f","华氏度 °F"],["k","开尔文 K"]] };
+
+  var CURRENCY_DEFAULT = [
+    ["cny","人民币 CNY",1], ["usd","美元 USD",7.10], ["eur","欧元 EUR",7.75],
+    ["jpy","日元 JPY",0.047], ["gbp","英镑 GBP",9.05], ["hkd","港币 HKD",0.91],
+    ["krw","韩元 KRW",0.0050], ["aud","澳元 AUD",4.65], ["cad","加元 CAD",5.20],
+    ["sgd","新加坡元 SGD",5.30], ["twd","新台币 TWD",0.22]
+  ];
+
+  var order = ["length","weight","temp","area","volume","speed","currency"];
+  var labels = { length:"长度", weight:"重量", temp:"温度", area:"面积", volume:"体积", speed:"速度", currency:"货币" };
+
+  var state = {
+    cat: "length",
+    input: "1",
+    from: {length:"m", weight:"kg", temp:"c", area:"m2", volume:"l", speed:"kmh", currency:"cny"},
+    to:   {length:"ft", weight:"lb", temp:"f", area:"ft2", volume:"gal", speed:"mph", currency:"usd"}
+  };
+
+  var rates = loadRates();
+
+  var $ = function(id){ return document.getElementById(id); };
+  var tabsEl = $("tabs"), inputEl = $("input"), fromEl = $("fromUnit"), toEl = $("toUnit");
+  var outEl = $("output"), listEl = $("list"), errEl = $("err"), noteEl = $("note");
+  var ratesBox = $("ratesBox"), rateGrid = $("rateGrid"), toastEl = $("toast");
+
+  function loadRates(){
+    var base = {};
+    CURRENCY_DEFAULT.forEach(function(u){ base[u[0]] = u[2]; });
+    try{
+      var saved = JSON.parse(localStorage.getItem("unitRates") || "null");
+      if(saved) for(var k in saved) if(typeof saved[k] === "number" && saved[k] > 0) base[k] = saved[k];
+    }catch(e){}
+    return base;
+  }
+
+  function unitsOf(cat){
+    if(cat === "temp") return TEMP.units.map(function(u){ return {id:u[0], label:u[1]}; });
+    if(cat === "currency") return CURRENCY_DEFAULT.map(function(u){ return {id:u[0], label:u[1], rate: rates[u[0]]}; });
+    return LINEAR[cat].units.map(function(u){ return {id:u[0], label:u[1], factor:u[2]}; });
+  }
+
+  function toC(v, id){
+    if(id === "c") return v;
+    if(id === "f") return (v - 32) * 5 / 9;
+    return v - 273.15;
+  }
+  function fromC(c, id){
+    if(id === "c") return c;
+    if(id === "f") return c * 9 / 5 + 32;
+    return c + 273.15;
+  }
+
+  function convert(v, cat, from, to){
+    if(cat === "temp") return fromC(toC(v, from), to);
+    var list = unitsOf(cat);
+    var f = find(list, from), t = find(list, to);
+    if(!f || !t) return NaN;
+    if(cat === "currency") return v * f.rate / t.rate;
+    return v * f.factor / t.factor;
+  }
+
+  function find(list, id){
+    for(var i=0;i<list.length;i++) if(list[i].id === id) return list[i];
+    return null;
+  }
+
+  function fmt(n){
+    if(!isFinite(n)) return "—";
+    if(n === 0) return "0";
+    var a = Math.abs(n);
+    if(a >= 1e15 || a < 1e-9) return n.toExponential(5).replace("e+","e");
+    var digits = a >= 1000 ? 2 : a >= 1 ? 3 : a >= 0.001 ? 5 : 8;
+    var rounded = Number(n.toPrecision(12));
+    var s = rounded.toLocaleString("en-US", { maximumFractionDigits: digits });
+    if(s === "0" && n !== 0) return n.toExponential(4).replace("e+","e");
+    return s;
+  }
+
+  function parseInput(raw){
+    var s = String(raw || "").trim().replace(/,/g, "").replace(/，/g, "");
+    if(s === "" || s === "-" || s === "." || s === "-.") return null;
+    var n = Number(s);
+    return isFinite(n) ? n : NaN;
+  }
+
+  function buildTabs(){
+    tabsEl.innerHTML = "";
+    order.forEach(function(cat){
+      var b = document.createElement("button");
+      b.className = "tab"; b.textContent = labels[cat]; b.type = "button";
+      b.setAttribute("role", "tab");
+      b.setAttribute("aria-selected", String(cat === state.cat));
+      b.addEventListener("click", function(){ setCat(cat); });
+      tabsEl.appendChild(b);
+    });
+  }
+
+  function fillSelects(){
+    var list = unitsOf(state.cat);
+    [fromEl, toEl].forEach(function(sel, idx){
+      sel.innerHTML = "";
+      list.forEach(function(u){
+        var o = document.createElement("option");
+        o.value = u.id; o.textContent = u.label;
+        sel.appendChild(o);
+      });
+      sel.value = idx === 0 ? state.from[state.cat] : state.to[state.cat];
+    });
+  }
+
+  function setCat(cat){
+    state.cat = cat;
+    buildTabs();
+    fillSelects();
+    render();
+    try{ localStorage.setItem("unitCat", cat); }catch(e){}
+  }
+
+  function render(){
+    var v = parseInput(inputEl.value);
+    var cat = state.cat;
+
+    if(v === null){
+      outEl.textContent = "—";
+      errEl.textContent = "";
+      renderList(NaN);
+      renderNote();
+      return;
+    }
+    if(isNaN(v)){
+      outEl.textContent = "—";
+      errEl.textContent = "请输入数字";
+      renderList(NaN);
+      renderNote();
+      return;
+    }
+    if(cat === "temp" && state.from[cat] === "k" && v < 0){
+      errEl.textContent = "开尔文不能为负";
+    } else if(cat === "temp" && state.from[cat] === "c" && v < -273.15){
+      errEl.textContent = "低于绝对零度";
+    } else {
+      errEl.textContent = "";
+    }
+
+    var res = convert(v, cat, state.from[cat], state.to[cat]);
+    outEl.textContent = fmt(res);
+    renderList(v);
+    renderNote();
+  }
+
+  function renderList(v){
+    var list = unitsOf(state.cat);
+    listEl.innerHTML = "";
+    list.forEach(function(u){
+      var li = document.createElement("li");
+      if(u.id === state.to[state.cat]) li.className = "sel";
+
+      var name = document.createElement("span");
+      name.className = "u"; name.textContent = u.label;
+
+      var val = document.createElement("span");
+      val.className = "v";
+      if(!isNaN(v)) val.textContent = fmt(convert(v, state.cat, state.from[state.cat], u.id));
+      else val.textContent = "—";
+
+      li.appendChild(name); li.appendChild(val);
+      li.addEventListener("click", function(){
+        state.to[state.cat] = u.id;
+        toEl.value = u.id;
+        render();
+      });
+      listEl.appendChild(li);
+    });
+  }
+
+  function renderNote(){
+    var cat = state.cat;
+    if(cat === "currency"){
+      noteEl.textContent = "汇率为页面内置的参考值，不是实时行情。要按自己的价格算，点上面的“汇率设置”改一下，改完会存在本机。";
+      ratesBox.hidden = false;
+    } else if(cat === "temp"){
+      noteEl.textContent = "温度换算是按绝对温标做的偏移计算，不是简单乘除。";
+      ratesBox.hidden = true;
+    } else {
+      noteEl.textContent = "点下面任意一行，可以把它设为换算目标单位。";
+      ratesBox.hidden = true;
+    }
+  }
+
+  function buildRates(){
+    rateGrid.innerHTML = "";
+    CURRENCY_DEFAULT.forEach(function(u){
+      if(u[0] === "cny") return;
+      var lab = document.createElement("label");
+      var span = document.createElement("span");
+      span.textContent = u[0].toUpperCase();
+      var inp = document.createElement("input");
+      inp.type = "text"; inp.inputMode = "decimal"; inp.value = String(rates[u[0]]);
+      inp.addEventListener("input", function(){
+        var n = Number(String(inp.value).replace(/,/g, ""));
+        if(isFinite(n) && n > 0){
+          rates[u[0]] = n;
+          try{ localStorage.setItem("unitRates", JSON.stringify(rates)); }catch(e){}
+          render();
+        }
+      });
+      lab.appendChild(span); lab.appendChild(inp);
+      rateGrid.appendChild(lab);
+    });
+  }
+
+  function toast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add("show");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function(){ toastEl.classList.remove("show"); }, 1400);
+  }
+
+  fromEl.addEventListener("change", function(){
+    state.from[state.cat] = fromEl.value;
+    render();
+  });
+  toEl.addEventListener("change", function(){
+    state.to[state.cat] = toEl.value;
+    render();
+  });
+  inputEl.addEventListener("input", render);
+
+  $("swap").addEventListener("click", function(){
+    var a = state.from[state.cat], b = state.to[state.cat];
+    var v = parseInput(inputEl.value);
+    if(v !== null && !isNaN(v)){
+      var res = convert(v, state.cat, a, b);
+      if(isFinite(res)) inputEl.value = String(Number(res.toPrecision(10)));
+    }
+    state.from[state.cat] = b;
+    state.to[state.cat] = a;
+    fromEl.value = b;
+    toEl.value = a;
+    render();
+  });
+
+  $("copy").addEventListener("click", function(){
+    var text = outEl.textContent;
+    if(!text || text === "—") return;
+    var done = function(){ toast("已复制"); };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, function(){ toast("复制失败，请长按选取"); });
+    } else {
+      toast("复制失败，请长按选取");
+    }
+  });
+
+  // boot
+  try{
+    var savedCat = localStorage.getItem("unitCat");
+    if(savedCat && order.indexOf(savedCat) > -1) state.cat = savedCat;
+  }catch(e){}
+
+  buildTabs();
+  fillSelects();
+  buildRates();
+  render();
+})();
+</script>
+</body>
+</html>
